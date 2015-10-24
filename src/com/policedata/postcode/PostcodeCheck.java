@@ -1,13 +1,5 @@
 package com.policedata.postcode;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.policedata.objects.Coordinates;
@@ -78,7 +70,7 @@ public class PostcodeCheck
 		postcodeCoordinates.setLatitude(latitudeValue);
 		
 		return postcodeCoordinates;
-	}
+	} // postcodeToCoordinates
 	
 	public static Neighbourhood coordinatesToNeighbourhood(Coordinates inputCoordinates)
 	{
