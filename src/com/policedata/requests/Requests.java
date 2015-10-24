@@ -19,7 +19,7 @@ public class Requests
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
-		
+
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 

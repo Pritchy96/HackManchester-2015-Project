@@ -1,8 +1,6 @@
 package com.policedata.parsing;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -30,12 +28,11 @@ public class ObjectMaker
 			return false;
 		} // if
 
-		Gson gson = new Gson();
 		JsonParser jsonParser = new JsonParser();
 
 		try
 		{
-			JsonObject jsonObject = jsonParser.parse(inputJsonString).getAsJsonObject();
+			jsonParser.parse(inputJsonString).getAsJsonObject();
 		} // try
 		catch (Exception exception)
 		{
@@ -64,36 +61,45 @@ public class ObjectMaker
 		{
 			return null;
 		} // if
-
-		Gson gson = new Gson();
+		
 		JsonParser jsonParser = new JsonParser();
 
 		try
 		{
 			JsonObject jsonObject = jsonParser.parse(inputJsonString).getAsJsonObject();
+			return jsonObject;
 		} // try
 		catch (Exception exception)
 		{
 			exception.printStackTrace();
 			return null;
 		} // catch
-
-		return jsonObject;
 	} // stringToJsonObject
 
 	/**
 	 * This method return and empty list on error -> not null.
 	 */
-	public static List<Priorities> generateObjectList(String urlString, Class<?> objectClass)
+	public static List<Object> generateObjectList(String urlString, Class<?> objectClass)
 	{
-		List<Priorities> prioritiesList = new ArrayList<Priorities>();
+		List<Object> objectList = new ArrayList<Object>();
 
 		if (urlString == null || urlString.isEmpty() || objectClass == null)
 		{
-			return prioritiesList;
-		}// if
+			return objectList;
+		} // if
 
-		String httpResonse = Requests.getRequest(urlString);
+		String httpResonse = null;
+
+		try
+		{
+			httpResonse = Requests.getRequest(urlString);
+		} // try
+		catch (Exception exception)
+		{
+			exception.printStackTrace();
+			return objectList;
+		} // catch
+		
 		JsonObject jsonObject = stringToJsonObject(httpResonse);
 		JsonArray jsonArray = jsonObject.getAsJsonArray();
 
@@ -104,14 +110,14 @@ public class ObjectMaker
 			try
 			{
 				Priorities listItem = gsonObj.fromJson(jsonElement, Priorities.class);
+				objectList.add(listItem);
 			} // try
 			catch (Exception exception)
 			{
 				exception.printStackTrace();
-				return prioritiesList;
+				return objectList;
 			} // catch
-			dataArray.add(listItem);
 		} // for
-		return dataArray;
+		return objectList;
 	} // generatePrioritiesList
 } // class
