@@ -1,52 +1,105 @@
 package com.policedata.crimedata;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.policedata.objects.*;
+import com.policedata.objects.Objects.CrimeCategories;
 import com.policedata.objects.Objects.CrimesAtLocation;
 import com.policedata.parsing.ObjectMaker;
+import com.policedata.requests.Requests;
 
 // Does calculations on the crime data got from JSON for stuff like
 //Number of crimes
 
-public class CrimeBreakdown {
+public class CrimeBreakdown
+{
 	
-	public static void test() throws Exception
+	public static Dictionary<String, ArrayList<CrimesAtLocation>> test(Coordinates neighbourhoodCoordinates) throws Exception
 	{
-	Date currentDate = new Date();
-	//date=2012-02 (YYYY-MM)
-	String url = "date=" + new SimpleDateFormat("yyyy'-'MM").format(currentDate);
-
-	System.out.println(url);
-	//ArrayList<Objects.CrimesAtLocation> oneMonth = ObjectMaker.GetCrimesAtLocation("https://data.police.uk/api/crimes-at-location?date=2012-02&lat=52.629729&lng=-1.131592"), sixMonths, twelveMonths;
-	
-	
-	ArrayList<Object> categories 
-		= ObjectMaker.generateObjectList("https://data.police.uk/api/crime-categories", Objects.CrimeCategories.class);
-	
-	Dictionary<String, ArrayList<CrimesAtLocation>> sortedCrimes = new Hashtable<String, ArrayList<CrimesAtLocation>>();
-	
-	for(CrimesAtLocation crime : oneMonth)
-	{
+		Date currentDate = new Date();
+		//date=2012-02 (YYYY-MM)
+		String dateValue = "?date=2014-10";
+		
+		List<CrimeCategories> categories = new ArrayList<CrimeCategories>();
+		String urlString = "https://data.police.uk/api/crime-categories";
+		
+		JsonParser jsonParser = new JsonParser();
+		String httpResponse = null;
 		try
 		{
-			sortedCrimes.get(crime.getCategory()).add(crime);
-		}
-		catch(Exception nullPointerException)
+			httpResponse = Requests.getRequest(urlString);
+		} // try
+		catch (Exception exception)
 		{
-			sortedCrimes.put(crime.getCategory(), new ArrayList<Objects.CrimesAtLocation>());
-			sortedCrimes.get(crime.getCategory()).add(crime);
+			exception.printStackTrace();
+			return null;
+		} // catch
+		
+		JsonElement jsonElement = jsonParser.parse(httpResponse);
+		JsonArray jsonArray = jsonElement.getAsJsonArray();
+		
+		for (JsonElement element : jsonArray)
+		{
+			CrimeCategories crimeCategories = new Gson().fromJson(element, CrimeCategories.class);
+			System.out.println(crimeCategories.getUniqueID());
+			categories.add(crimeCategories);
 		}
-	}
-	
-	for(int i = 0; i < sortedCrimes.get("anti-social-behaviour").size(); i++)
-	{
-		System.out.println(sortedCrimes.get("anti-social-behaviour").get(i).getLatitude());
-	}
-	//categories.
+		
+		
+		String longitudeValue = "&lng=" + neighbourhoodCoordinates.getLongitude();
+		String latitudeValue = "&lat=" + neighbourhoodCoordinates.getLatitude();
+		
+		urlString = "https://data.police.uk/api/crimes-at-location" + dateValue + latitudeValue + longitudeValue;
+		
+		httpResponse = null;
+		try
+		{
+			httpResponse = Requests.getRequest(urlString);
+		} // try
+		catch (Exception exception)
+		{
+			exception.printStackTrace();
+			return null;
+		} // catch
+		
+		jsonElement = jsonParser.parse(httpResponse);
+		jsonArray = jsonElement.getAsJsonArray();
+		
+		List<CrimesAtLocation> crimesAtLocationList = new ArrayList<CrimesAtLocation>();
+		
+		for (JsonElement element : jsonArray)
+		{
+			CrimesAtLocation crimesAtLocation = new Gson().fromJson(element, CrimesAtLocation.class);
+			crimesAtLocationList.add(crimesAtLocation);
+		}
+		
+		Dictionary<String, ArrayList<CrimesAtLocation>> sortedCrimes = new Hashtable<String, ArrayList<CrimesAtLocation>>();
+		ArrayList<CrimesAtLocation> emptyArrayList = new ArrayList<CrimesAtLocation>();
+		
+		for (Object obj : categories)
+		{
+			CrimeCategories crimeCategoryObj = (CrimeCategories) obj;
+			String crimeCategoryStr = crimeCategoryObj.getUniqueID();
+			sortedCrimes.put(crimeCategoryStr, emptyArrayList);
+		}
+		
+		for (CrimesAtLocation crimesAtLocation : crimesAtLocationList)
+		{
+			String crimeCategory = crimesAtLocation.getCategory();
+			
+			sortedCrimes.get(crimeCategory).add(crimesAtLocation);
+		}
+		
+		return sortedCrimes;
 	}
 	
 	public static String urlGeneration(Coordinates inputCoordinates, Date inputDate)

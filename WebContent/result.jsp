@@ -35,6 +35,8 @@
           <li>Neighbourhood: ${neighbourhood}</li>
           <li>Longitude: ${longitude}</li>
           <li>Latitude: ${latitude}</li>
+          <li>Waka: ${waka}</li>
+          <li>Lol: ${lol}</li>
         </ul>
       </div>
       <div class="five columns" style="text-align: center;">
