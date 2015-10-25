@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.policedata.crimedata.CrimeBreakdown;
 import com.policedata.homepage.PostcodeSubmit;
 import com.policedata.objects.Coordinates;
 import com.policedata.objects.Neighbourhood;
@@ -45,7 +46,9 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("longitude", postcodeCoordinates.getLongitude());
 		request.setAttribute("latitude", postcodeCoordinates.getLatitude());
 		
-		request.setAttribute("latitude", Priorities.parsePriorityList(postcodeNeighbourhood)[1]);
+		
+		CrimeBreakdown.
+		request.setAttribute("latitude", Priorities.getRelatedCrimes(sortedCrimes, priorities, categories));
 		
 		request.getRequestDispatcher("result.jsp").forward(request, response);
 	}
