@@ -1,4 +1,4 @@
-package com.policedata.main;
+package com.policedata.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.policedata.homepage.PostcodeSubmit;
 import com.policedata.objects.Coordinates;
 import com.policedata.objects.Neighbourhood;
-import com.policedata.postcode.PostcodeCheck;
 
 /**
  * Servlet implementation class HelloWorldServlet
  */
 @WebServlet("/out")
-public class Main extends HttpServlet {
+public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Main() {
+    public Servlet() {
         super(); 
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +32,8 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String postcodeString = request.getParameter("postcode");
-		Coordinates postcodeCoordinates = PostcodeCheck.postcodeToCoordinates(postcodeString);
-		Neighbourhood postcodeNeighbourhood = PostcodeCheck.coordinatesToNeighbourhood(postcodeCoordinates);
+		Coordinates postcodeCoordinates = PostcodeSubmit.postcodeToCoordinates(postcodeString);
+		Neighbourhood postcodeNeighbourhood = PostcodeSubmit.coordinatesToNeighbourhood(postcodeCoordinates);
 		
 		request.setAttribute("postcode", postcodeString);
 		

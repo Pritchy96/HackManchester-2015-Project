@@ -1,4 +1,4 @@
-package com.policedata.postcode;
+package com.policedata.homepage;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -6,7 +6,7 @@ import com.policedata.objects.Coordinates;
 import com.policedata.objects.Neighbourhood;
 import com.policedata.requests.Requests;
 
-public class PostcodeCheck
+public class PostcodeSubmit
 {
 	/**
 	 * This method will check a postcode string to make sure it is a valid format.
