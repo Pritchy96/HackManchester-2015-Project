@@ -41,6 +41,7 @@ public class Servlet extends HttpServlet {
 		String postcodeString = request.getParameter("postcode");
 		request.setAttribute("postcode", postcodeString);
 		
+<<<<<<< HEAD
 		Coordinates postcodeCoordinates = PostcodeSubmit.postcodeToCoordinates(postcodeString);
 		 if (postcodeCoordinates != null)
 		 {
@@ -54,6 +55,17 @@ public class Servlet extends HttpServlet {
 			request.setAttribute("force", postcodeNeighbourhood.getForce());
 			request.setAttribute("neighbourhood", postcodeNeighbourhood.getNeighbourhood());
 		}
+=======
+		request.setAttribute("force", postcodeNeighbourhood.getForce());
+		request.setAttribute("neighbourhood", postcodeNeighbourhood.getNeighbourhood());
+		
+		request.setAttribute("longitude", postcodeCoordinates.getLongitude());
+		request.setAttribute("latitude", postcodeCoordinates.getLatitude());
+		
+		
+		CrimeBreakdown.
+		request.setAttribute("latitude", Priorities.getRelatedCrimes(sortedCrimes, priorities, categories));
+>>>>>>> eb523664dd1f95b55c6f6a6829d2db3ca241bdb8
 		
 		try
 		{
