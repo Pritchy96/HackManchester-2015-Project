@@ -81,10 +81,10 @@ public class Objects {
 		String longitude;
 		 @SerializedName("latitude")
 		String latitude;
-		 @SerializedName("street")
-		String streetObject;
-		 @SerializedName("outcome_status")
-		String outcomeObject;
+		 //@SerializedName("street")
+		 //JsonObject streetObject;
+		 //@SerializedName("outcome_status")
+		 //JsonObject outcomeObject;
 		 
 		public String getCategory() {
 			return category;
