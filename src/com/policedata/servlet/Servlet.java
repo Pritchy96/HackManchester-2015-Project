@@ -1,5 +1,6 @@
 package com.policedata.servlet;
 
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.policedata.homepage.PostcodeSubmit;
 import com.policedata.objects.Coordinates;
 import com.policedata.objects.Neighbourhood;
+import com.policedata.priorities.*;
 
 /**
  * Servlet implementation class HelloWorldServlet
@@ -42,6 +44,8 @@ public class Servlet extends HttpServlet {
 		
 		request.setAttribute("longitude", postcodeCoordinates.getLongitude());
 		request.setAttribute("latitude", postcodeCoordinates.getLatitude());
+		
+		request.setAttribute("latitude", Priorities.parsePriorities(postcodeNeighbourhood));
 		
 		request.getRequestDispatcher("result.jsp").forward(request, response);
 	}
