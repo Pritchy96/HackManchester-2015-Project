@@ -16,7 +16,6 @@ public class CrimeBreakdown {
 	
 	public static void test() throws Exception
 	{
-		
 	Date currentDate = new Date();
 	//date=2012-02 (YYYY-MM)
 	String url = "date=" + new SimpleDateFormat("yyyy'-'MM").format(currentDate);
