@@ -13,7 +13,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+<<<<<<< HEAD
+public class overview
+{
+=======
 public class Overview {
+>>>>>>> a6d22f3728c4ee9ad24dc13d549d6d7d47bd16aa
 	public static JsonArray getMapArray(Dictionary<String, ArrayList<CrimesAtLocation>> sortedCrimes, ArrayList<Objects.CrimeCategories> categories )
 	{
 		JsonArray mapArray = null;
