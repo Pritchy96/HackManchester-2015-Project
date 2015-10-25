@@ -22,9 +22,9 @@ public class overview {
 			for (CrimesAtLocation crime : sortedCrimes.get(categories.get(i)))
 			{
 				JsonObject obj = new JsonObject();
-				obj.addProperty("lat: ", crime.getLatitude());
-				obj.addProperty("lng: ", crime.getLongitude());
-				obj.addProperty("cat: ", crime.getCategory());
+				obj.addProperty("lat", crime.getLatitude());
+				obj.addProperty("lng", crime.getLongitude());
+				obj.addProperty("cat", crime.getCategory());
 				
 				mapArray.add(obj);
 			}
