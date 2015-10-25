@@ -4,6 +4,8 @@ package com.policedata.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,9 +70,8 @@ public class Servlet extends HttpServlet {
 		
 		try
 		{
-			Dictionary<String, ArrayList<CrimesAtLocation>> foo = CrimeBreakdown.test(postcodeCoordinates);
-			request.setAttribute("lol", foo.size() + "a");
-			request.setAttribute("waka", foo);
+			Map<String, List<CrimesAtLocation>> crimeDict = CrimeBreakdown.test(postcodeCoordinates);
+			request.setAttribute("crimeDict", crimeDict);
 		}
 		catch (Exception exception)
 		{

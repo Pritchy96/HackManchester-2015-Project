@@ -21,8 +21,8 @@
     <div class="row">
       <div class="six columns offset-by-three columns" style="text-align: center;">
         <form action="out" method="GET">
-          <input type="text" autocomplete="off" autofocus name="postcode" id="postcode" />
-          <input type="submit" />
+          <input type="text" autocomplete="off" autofocus name="postcode" id="postcode" style="text-transform: uppercase;" />
+          <input type="submit" value="Go"/>
         </form>
       </div>
     </div>

@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -23,7 +25,7 @@ import com.policedata.requests.Requests;
 public class CrimeBreakdown
 {
 	
-	public static Dictionary<String, ArrayList<CrimesAtLocation>> test(Coordinates neighbourhoodCoordinates) throws Exception
+	public static Map<String, List<CrimesAtLocation>> test(Coordinates neighbourhoodCoordinates) throws Exception
 	{
 		Date currentDate = new Date();
 		//date=2012-02 (YYYY-MM)
@@ -82,7 +84,7 @@ public class CrimeBreakdown
 			crimesAtLocationList.add(crimesAtLocation);
 		}
 		
-		Dictionary<String, ArrayList<CrimesAtLocation>> sortedCrimes = new Hashtable<String, ArrayList<CrimesAtLocation>>();
+		Map<String, List<CrimesAtLocation>> sortedCrimes = new HashMap<String, List<CrimesAtLocation>>();
 		ArrayList<CrimesAtLocation> emptyArrayList = new ArrayList<CrimesAtLocation>();
 		
 		for (Object obj : categories)
