@@ -45,7 +45,7 @@ public class Servlet extends HttpServlet {
 		request.setAttribute("longitude", postcodeCoordinates.getLongitude());
 		request.setAttribute("latitude", postcodeCoordinates.getLatitude());
 		
-		request.setAttribute("latitude", Priorities.parsePriorities(postcodeNeighbourhood));
+		request.setAttribute("latitude", Priorities.parsePriorityList(postcodeNeighbourhood)[1]);
 		
 		request.getRequestDispatcher("result.jsp").forward(request, response);
 	}

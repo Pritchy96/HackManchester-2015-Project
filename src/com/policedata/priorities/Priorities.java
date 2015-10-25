@@ -1,6 +1,7 @@
 package com.policedata.priorities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -13,7 +14,7 @@ import com.policedata.requests.Requests;
 
 public class Priorities {
 
-	public static String parsePriorities(Neighbourhood inputNeighbourhood)
+	private static String parsePriorities(Neighbourhood inputNeighbourhood)
 	{
 		String urlString = urlGeneration(inputNeighbourhood);
 		
@@ -44,10 +45,15 @@ public class Priorities {
 		return y;
 	}
 
-	public static ArrayList<String> parsePriorityList(String par)
+	public static String[] parsePriorityList(Neighbourhood inputNeighbourhood)
 	{
-		
+		 String[] splitList = parsePriorities(inputNeighbourhood).split("What:");
+		 //get rid of empty first element
+		 String[] returnArray = Arrays.copyOfRange(splitList, 1, splitList.length);
+		 return returnArray;
 	}
+	
+	
 	public static String urlGeneration(Neighbourhood inputNeighbourhood)
 	  {
 	    // do a null check on input argument & object elements
