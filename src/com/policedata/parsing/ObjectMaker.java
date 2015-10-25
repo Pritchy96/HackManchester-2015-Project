@@ -79,9 +79,9 @@ public class ObjectMaker
 	/**
 	 * This method return and empty list on error -> not null.
 	 */
-	public static List<Object> generateObjectList(String urlString, Class<?> objectClass)
+	public static ArrayList<Object> generateObjectList(String urlString, Class<?> objectClass)
 	{
-		List<Object> objectList = new ArrayList<Object>();
+		ArrayList<Object> objectList = new ArrayList<Object>();
 
 		if (urlString == null || urlString.isEmpty() || objectClass == null)
 		{

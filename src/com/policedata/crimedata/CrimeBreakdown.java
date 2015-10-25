@@ -21,12 +21,11 @@ public class CrimeBreakdown {
 	String url = "date=" + new SimpleDateFormat("yyyy'-'MM").format(currentDate);
 
 	System.out.println(url);
-	ArrayList<Objects.CrimesAtLocation> oneMonth = 
-			ObjectMaker.GetCrimesAtLocation("https://data.police.uk/api/crimes-at-location?date=2012-02&lat=52.629729&lng=-1.131592"), sixMonths, twelveMonths;
+	//ArrayList<Objects.CrimesAtLocation> oneMonth = ObjectMaker.GetCrimesAtLocation("https://data.police.uk/api/crimes-at-location?date=2012-02&lat=52.629729&lng=-1.131592"), sixMonths, twelveMonths;
 	
 	
-	ArrayList<Objects.CrimeCategories> categories 
-		= ObjectMaker.GetCrimeCategories("https://data.police.uk/api/crime-categories");
+	ArrayList<Object> categories 
+		= ObjectMaker.generateObjectList("https://data.police.uk/api/crime-categories", Objects.CrimeCategories.class);
 	
 	Dictionary<String, ArrayList<CrimesAtLocation>> sortedCrimes = new Hashtable<String, ArrayList<CrimesAtLocation>>();
 	
