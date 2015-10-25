@@ -51,4 +51,22 @@ public class CrimeBreakdown {
 	//categories.
 	}
 	
+	public static String urlGeneration(Coordinates inputCoordinates, Date inputDate)
+	  {
+	    // do a null check on input argument & object elements
+	    if (inputCoordinates == null || inputCoordinates.getLatitude() == null ||
+	    		inputCoordinates.getLongitude() == null || inputDate == null)
+	    {
+	      return null;
+	    } // if
+	    
+	    Double latitude = inputCoordinates.getLatitude(), 
+	    		longitude = inputCoordinates.getLongitude();
+	    String date = "date=" + new SimpleDateFormat("yyyy'-'MM").format(inputDate);
+	    
+	    String urlString = "https://data.police.uk/api/crimes-at-location?" + date + "&lat=" + latitude + "&lng=" + longitude;
+	    
+	    return urlString;
+	  } // urlGeneration
+	
 }
